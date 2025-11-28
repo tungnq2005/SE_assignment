@@ -35,7 +35,7 @@ export default function AdminSidebar() {
       </div>
 
       {/* Phần điều hướng chính */}
-      <nav className="flex-grow">
+      <nav className="grow">
         <h3 className="text-xs font-semibold text-gray-500 uppercase mb-2">TỔNG QUAN</h3>
         <div className="space-y-2">
           <NavLink 
