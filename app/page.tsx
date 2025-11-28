@@ -99,7 +99,6 @@ export default function LoginPage() {
         </video>
 
         {/* 2. Overlay Layer (Lớp phủ màu tối để text dễ đọc hơn) */}
-        {/* Bạn có thể chỉnh opacity (ví dụ: bg-blue-900/60) để video rõ hơn hoặc mờ hơn */}
         <div className="absolute inset-0 bg-blue-900/70 z-10 mix-blend-multiply"></div>
         <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent z-10"></div>
 
