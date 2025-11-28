@@ -12,7 +12,7 @@ type ClassCardProps = {
 export default function ClassCard({ title, base, room, time }: ClassCardProps) {
   return (
     // Thẻ trắng, bo góc, có bóng
-    <div className="bg-white rounded-lg shadow-md p-4 w-64 flex-shrink-0">
+    <div className="bg-white rounded-lg shadow-md p-4 w-64 shrink-0">
       <h3 className="font-bold text-lg mb-3">{title}</h3>
       
       <div className="space-y-2 text-sm text-gray-700">

@@ -38,7 +38,7 @@ export default function TutorSidebar() {
         <span className="text-xl font-bold ml-2 text-blue-900">HCMUT Tutor</span>
       </div>
 
-      <nav className="flex-grow space-y-6">
+      <nav className="grow space-y-6">
         <div>
             <h3 className="text-xs font-bold text-gray-400 uppercase mb-3 px-3">TỔNG QUAN</h3>
             <div className="space-y-1">
@@ -69,16 +69,16 @@ export default function TutorSidebar() {
             <h3 className="text-xs font-bold text-gray-400 uppercase mb-3 px-3">QUẢN LÝ</h3>
             <div className="space-y-1">
             <NavLink 
-                href="#" 
+                href="/tutor/support_in4" 
                 icon={HiOutlineUserGroup} 
                 text="Thông tin hỗ trợ"
-                active={false}
+                active={isActive("/tutor/support_in4")}
             />
             <NavLink 
-                href="#" 
+                href="/tutor/progress" 
                 icon={HiOutlineTrendingUp} 
                 text="Theo dõi tiến bộ"
-                active={false}
+                active={isActive("/tutor/progress")}
             />
             </div>
         </div>
