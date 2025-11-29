@@ -88,6 +88,7 @@ export default function TutorSidebar() {
                       text="Thư viện tài liệu"
                       active={isActive("/tutor/library")}
                   />
+                  
               </div>
           </div>
 
@@ -95,6 +96,12 @@ export default function TutorSidebar() {
           <div>
               <h3 className="text-xs font-bold text-gray-400 uppercase mb-4 px-6 tracking-wider">Quản lý lớp học</h3>
               <div className="space-y-2">
+                  <NavLink 
+                      href="/tutor/community" 
+                      icon={HiOutlineUserGroup} 
+                      text="Cộng đồng Tutor"
+                      active={pathname.includes("/tutor/community")}
+                  />
                   <NavLink 
                       href="/tutor/support_in4" 
                       icon={HiOutlineUserGroup} 

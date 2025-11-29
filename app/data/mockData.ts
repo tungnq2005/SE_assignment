@@ -148,3 +148,39 @@ export const MOCK_SCHEDULE: Session[] = [
     status: "open"
   }
 ];
+
+export type Community = {
+  id: number;
+  name: string;
+  members: number;
+  isJoined: boolean;
+  cover: string;
+  category: string;
+  description: string;
+};
+
+export const MOCK_COMMUNITIES: Community[] = [
+  { id: 1, name: "Hội đồng hương 36", members: 1200, isJoined: true, cover: "/group-1.jpg", category: "Đồng hương", description: "Nơi giao lưu anh em Thanh Hóa" },
+  { id: 2, name: "Nhóm tấu hài BK", members: 36000, isJoined: false, cover: "/group-2.jpg", category: "Giải trí", description: "Stress thì vào đây" },
+  { id: 3, name: "Góc học tập K23", members: 500, isJoined: false, cover: "/group-3.jpg", category: "Học tập", description: "Chia sẻ tài liệu K23" },
+  { id: 4, name: "Anti rớt môn", members: 9000, isJoined: true, cover: "/group-4.jpg", category: "Học tập", description: "Quyết tâm A+" },
+  { id: 5, name: "CLB Guitar", members: 150, isJoined: false, cover: "/group-5.jpg", category: "Nghệ thuật", description: "Yêu âm nhạc" },
+];
+
+// --- 7. DỮ LIỆU TIN NHẮN (CHAT) ---
+export type ChatMessage = {
+  id: number;
+  groupId: number; // Tin nhắn thuộc nhóm nào
+  sender: string;
+  text: string;
+  isMe: boolean;
+  timestamp: string;
+};
+
+export const MOCK_MESSAGES: ChatMessage[] = [
+  { id: 1, groupId: 1, sender: "Quê 36", text: "Hello mọi người", isMe: false, timestamp: "10:00" },
+  { id: 2, groupId: 1, sender: "Trung", text: "Chào anh em nhé", isMe: true, timestamp: "10:05" },
+  { id: 3, groupId: 1, sender: "Nam", text: "Cuối tuần đá bóng không?", isMe: false, timestamp: "10:10" },
+  { id: 4, groupId: 4, sender: "Minh", text: "Ai có slide Giải tích 2 chương 3 không?", isMe: false, timestamp: "08:00" },
+  { id: 5, groupId: 4, sender: "Trung", text: "Để tớ gửi lên thư viện cho", isMe: true, timestamp: "08:15" },
+];

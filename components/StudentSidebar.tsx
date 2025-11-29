@@ -1,98 +1,165 @@
+"use client";
+
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-// Import các icon
-import { HiOutlineHome, HiOutlineCalendar, HiOutlineBookOpen, HiOutlineAcademicCap, HiOutlineCog } from 'react-icons/hi';
-import { FaChalkboardTeacher } from 'react-icons/fa'; // Cần import thêm
-import { HiOutlineUsers } from 'react-icons/hi';
+import { usePathname } from 'next/navigation';
+import { 
+  HiOutlineHome, 
+  HiOutlineCalendar, 
+  HiOutlineBookOpen, 
+  HiOutlineUsers, 
+  HiOutlineTrendingUp,
+  HiOutlineX 
+} from 'react-icons/hi';
+import { FaChalkboardTeacher } from 'react-icons/fa';
 
-// Component này là 'client component' vì nó có thể có tương tác (sau này)
-// "use client" phải ở dòng đầu tiên
-// "use client";
+// Component NavLink (Style y hệt Tutor)
+const NavLink = ({ href, icon: Icon, text, active }: any) => {
+  return (
+    <Link href={href} className="block w-full">
+      <div className={`
+        relative flex items-center px-4 py-3 mx-2 rounded-xl text-sm transition-all duration-300 ease-in-out
+        group
+        ${active 
+          ? 'bg-linear-to-r from-blue-600 to-blue-400 text-white font-bold shadow-lg shadow-blue-500/30 translate-x-1' 
+          : 'text-gray-700 font-medium hover:bg-gray-100 hover:shadow-md hover:-translate-y-0.5 hover:text-blue-600'
+        }
+      `}>
+        {/* Icon */}
+        <Icon className={`
+          w-5 h-5 mr-3 transition-colors duration-300
+          ${active ? 'text-white' : 'text-gray-500 group-hover:text-blue-600'}
+        `} />
+        
+        {/* Text */}
+        <span className="tracking-wide">{text}</span>
 
-// Một component cho mỗi mục menu để dễ quản lý
-const NavLink = ({ href, icon: Icon, text, active }: any) => (
-  <Link href={href}>
-    <div className={`
-      flex items-center p-3 rounded-lg text-sm font-medium
-      ${active 
-        ? 'bg-blue-600 text-white' 
-        : 'text-gray-700 hover:bg-gray-100'}
-    `}>
-      <Icon className="w-5 h-5 mr-3" />
-      {text}
-    </div>
-  </Link>
-);
+        {/* Decor: Chấm tròn trắng nhỏ bên phải khi active */}
+        {active && (
+          <div className="absolute right-3 w-1.5 h-1.5 bg-white rounded-full opacity-70 shadow-sm" />
+        )}
+      </div>
+    </Link>
+  );
+};
 
 export default function StudentSidebar() {
-  // Sau này, bạn sẽ dùng 'usePathname' của Next.js để xác định trang active
-  const currentPath = "/student"; // Giả sử đang ở trang chủ
+  const pathname = usePathname();
+  
+  // Logic kiểm tra active: Link nào đang khớp với đường dẫn hiện tại
+  const isActive = (path: string) => pathname === path;
+  
+  // State cho Easter Egg
+  const [showEasterEgg, setShowEasterEgg] = useState(false);
 
   return (
-    <aside className="w-64 h-screen bg-white p-4 flex flex-col shadow-lg">
-      {/* Phần Logo và Tên */}
-      <div className="flex items-center mb-6 p-2">
-        <FaChalkboardTeacher className="w-8 h-8 text-blue-600" />
-        <span className="text-xl font-bold ml-2">HCMUT Tutor</span>
-      </div>
-
-      {/* Phần điều hướng chính */}
-      <nav className="flex-grow">
-        <h3 className="text-xs font-semibold text-gray-500 uppercase mb-2">TỔNG QUAN</h3>
-        <div className="space-y-2">
-          <NavLink 
-            href="/student" 
-            icon={HiOutlineHome} 
-            text="Trang chủ"
-            active={currentPath === "/student"} // Đang active
-          />
-          <NavLink 
-            href="/student/schedule" 
-            icon={HiOutlineCalendar} 
-            text="Lịch học của tôi"
-            active={false}
-          />
-          <NavLink 
-            href="/student/library" 
-            icon={HiOutlineBookOpen} 
-            text="Thư viện"
-            active={false}
-          />
-          <NavLink 
-            href="/student/community" 
-            icon={HiOutlineUsers} 
-            text="Cộng đồng"
-            active={currentPath.includes("/student/community")}
-          />
+    <>
+      <aside className="w-72 h-screen bg-white border-r border-gray-100 flex flex-col pt-6 pb-4 shadow-xl z-40 sticky top-0">
+        
+        {/* Logo Area */}
+        <div className="flex items-center px-8 mb-10">
+          <div className="p-2 bg-blue-50 rounded-lg mr-3">
+              <FaChalkboardTeacher className="w-6 h-6 text-blue-600" />
+          </div>
+          <div>
+              <h1 className="text-xl font-extrabold text-gray-800 tracking-tight">HCMUT <span className="text-blue-600">Tutor</span></h1>
+          </div>
         </div>
 
-        <h3 className="text-xs font-semibold text-gray-500 uppercase mt-6 mb-2">TRUY CẬP GIẢNG DẠY</h3>
-        <div className="space-y-2">
-          <NavLink 
-            href="#" 
-            icon={HiOutlineAcademicCap} 
-            text="Cấu trúc rời rạc"
-            active={false}
-          />
-          <NavLink 
-            href="#" 
-            icon={HiOutlineAcademicCap} 
-            text="Mô hình hóa Toán..."
-            active={false}
+        {/* Navigation Menu */}
+        <nav className="grow space-y-8 px-2 overflow-y-auto custom-scrollbar">
+          {/* Nhóm: TỔNG QUAN */}
+          <div>
+              <h3 className="text-xs font-bold text-gray-400 uppercase mb-4 px-6 tracking-wider">Tổng quan</h3>
+              <div className="space-y-2">
+                  <NavLink 
+                      href="/student" 
+                      icon={HiOutlineHome} 
+                      text="Trang chủ"
+                      active={isActive("/student")} 
+                  />
+                  <NavLink 
+                      href="/student/schedule" 
+                      icon={HiOutlineCalendar} 
+                      text="Lịch học của tôi"
+                      active={isActive("/student/schedule")}
+                  />
+                  <NavLink 
+                      href="/student/library" 
+                      icon={HiOutlineBookOpen} 
+                      text="Thư viện tài liệu"
+                      active={isActive("/student/library")}
+                  />
+              </div>
+          </div>
+
+          {/* Nhóm: CỘNG ĐỒNG & PHÁT TRIỂN (Khác với Tutor) */}
+          <div>
+              <h3 className="text-xs font-bold text-gray-400 uppercase mb-4 px-6 tracking-wider">Cộng đồng & Phát triển</h3>
+              <div className="space-y-2">
+                  <NavLink 
+                      href="/student/community" 
+                      icon={HiOutlineUsers} 
+                      text="Cộng đồng"
+                      active={pathname.includes("/student/community")} // Active cả khi vào chat con
+                  />
+                  <NavLink 
+                      href="/student/progress" 
+                      icon={HiOutlineTrendingUp} 
+                      text="Tiến độ & Đánh giá"
+                      active={isActive("/student/progress")}
+                  />
+              </div>
+          </div>
+        </nav>
+
+        {/* Footer Image (Easter Egg trigger) */}
+        <div 
+          className="mt-4 px-6 relative group cursor-pointer"
+          onClick={() => setShowEasterEgg(true)}
+        >
+          <Image 
+            src="/merry-christmas.png" 
+            alt="Merry Christmas" 
+            width={160} 
+            height={80} 
+            className="mx-auto opacity-80 hover:opacity-100 hover:scale-105 transition-all duration-300" 
           />
         </div>
-      </nav>
+      </aside>
 
-      {/* Ảnh Merry Christmas */}
-      <div className="mt-auto">
-        <Image 
-          src="/merry-christmas.png" 
-          alt="Merry Christmas" 
-          width={200} 
-          height={100}
-          className="mx-auto"
-        />
-      </div>
-    </aside>
+      {/* Easter Egg Modal */}
+      {showEasterEgg && (
+        <div 
+          className="fixed inset-0 z-[9999] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 transition-all duration-300"
+          onClick={() => setShowEasterEgg(false)} 
+        >
+          <div 
+            className="relative bg-white/10 p-2 rounded-2xl shadow-2xl animate-bounce-in max-w-4xl max-h-[90vh]"
+            onClick={(e) => e.stopPropagation()} 
+          >
+            {/* Nút tắt */}
+            <button 
+              onClick={() => setShowEasterEgg(false)}
+              className="absolute -top-4 -right-4 bg-red-500 hover:bg-red-600 text-white rounded-full p-2 shadow-lg transition-colors z-10"
+            >
+              <HiOutlineX className="w-6 h-6" />
+            </button>
+
+            <div className="relative rounded-xl overflow-hidden border-4 border-white/20">
+               <Image 
+                 src="/IMG_1751.JPG" // Đảm bảo bạn có file ảnh này trong thư mục public
+                 alt="Giang sinh vui ve" 
+                 width={800} 
+                 height={800}
+                 className="object-contain w-auto h-auto max-h-[80vh]"
+                 priority
+               />
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

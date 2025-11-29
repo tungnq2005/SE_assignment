@@ -7,7 +7,6 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    // Đặt màu nền xanh đậm cho toàn bộ khu vực Admin
     <div className="flex h-screen bg-[#475569]"> 
       <AdminSidebar />
       <div className="flex-1 flex flex-col">
