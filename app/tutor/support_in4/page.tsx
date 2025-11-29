@@ -136,7 +136,7 @@ export default function TutorSupportInfoPage() {
   };
 
   return (
-    <div className="min-h-screen p-6" style={{ backgroundColor: '#4F679C' }}>
+    <div className="min-h-screen p-6">
       {/* Container thông báo */}
       <NotiContainer notifications={notifications} onRemove={removeNotification} />
 

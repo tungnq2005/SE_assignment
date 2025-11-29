@@ -123,7 +123,7 @@ const chartData = [
 ];
 
 const StatCard = ({ stat }: any) => (
-  <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all">
+  <div className="bg-[#F4F7F5] p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-all">
     <div className="flex items-center justify-between">
       <div className="flex-1">
         <p className="text-sm text-gray-600 font-medium mb-1">{stat.label}</p>
@@ -285,30 +285,61 @@ export default function TutorDashboardPage() {
 
   return (
     <div className="space-y-6 pb-8">
-        {/* Banner Giáng sinh với ảnh nền */}
         <div 
-          className="p-6 rounded-2xl shadow-sm relative overflow-hidden bg-cover bg-center"
+          className="rounded-2xl shadow-sm relative overflow-hidden bg-cover bg-center group"
           style={{
             backgroundImage: 'url(https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=1200&q=80)',
-            minHeight: '140px'
+            minHeight: '200px' 
           }}
         >
-          <div className="absolute inset-0 bg-linear-to-r from-red-900/90 via-green-900/85 to-red-900/90"></div>
+          <div className="absolute inset-0 bg-[#002815]/90"></div>
           
-          <div className="relative z-10">
-            <div className="flex items-center justify-between">
-              <div>
-                <h1 className="text-3xl font-bold text-white mb-1 drop-shadow-lg" style={{fontFamily: 'cursive'}}>
-                  🎄 Giáng sinh an lành! ✨ Dạy học thật nhanh !
+          <div className="absolute top-0 w-full h-full opacity-20 pointer-events-none" 
+               style={{backgroundImage: 'radial-gradient(circle, #fcd34d 1px, transparent 1px)', backgroundSize: '30px 30px'}}>
+          </div>
+
+          <div className="relative z-10 p-6 flex flex-col justify-between h-full">
+            
+            <div className="w-full mb-4">
+              <div className="flex justify-start">
+                 <h1 
+                  className="text-7xl md:text-8xl leading-none"
+                  style={{
+                    fontFamily: 'Italianno, cursive',
+                    color: '#D32F2F', 
+                    WebkitTextStroke: '1px white', 
+                    textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
+                    transform: 'rotate(-0deg)',
+                    fontStyle: 'italic' 
+                  }}
+                >
+                  Giáng sinh an lành
                 </h1>
-                <p className="text-white/95 text-base drop-shadow">
-                  Chào buổi chiều, <span className="font-semibold">Lương Ngọc Trung</span>. Hôm nay bạn có {todayClasses.filter(c => c.status !== 'completed').length} lớp học cần hỗ trợ.
-                </p>
               </div>
-              <div className="text-white/90 text-5xl drop-shadow-lg">
-                🎅
+
+              {/* Dòng 2: Dạy học thật nhanh - Góc dưới bên phải (so với container chữ) */}
+              <div className="flex justify-end mt-6 md:mt-1 mr-15">
+                <h2 
+                  className="text-5xl md:text-7xl tracking-wide"
+                  style={{
+                    fontFamily: 'Jaro, sans-serif',
+                    color: '#4ADE80', 
+                    textShadow: '2px 2px 0px #003300'
+                  }}
+                >
+                  dạy học thật nhanh
+                </h2>
               </div>
             </div>
+
+            {/* KHU VỰC INFO NGƯỜI DÙNG (Giữ lại logic cũ của bạn nhưng đẩy xuống dưới) */}
+            <div className="flex items-end justify-between border-t border-white/20 pt-4 mt-2">
+              <p className="text-white/90 text-sm md:text-base font-light drop-shadow">
+                Chào buổi chiều, <span className="font-bold text-yellow-300">Lương Ngọc Trung</span>. 
+                Bạn có <span className="font-bold bg-white/20 px-2 py-0.5 rounded text-white">{todayClasses.filter(c => c.status !== 'completed').length}</span> lớp cần hỗ trợ.
+              </p>
+            </div>
+
           </div>
         </div>
 
@@ -324,7 +355,7 @@ export default function TutorDashboardPage() {
         {/* Cột bên trái (2/3) */}
         <div className="lg:col-span-2 space-y-6">
           {/* Biểu đồ tròn */}
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+          <div className="bg-[#F4F7F5] p-6 rounded-xl shadow-sm border border-gray-100">
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h2 className="text-xl font-bold text-gray-900">Phân bổ giờ dạy theo môn</h2>
@@ -339,7 +370,7 @@ export default function TutorDashboardPage() {
           </div>
           
           {/* Các lớp hôm nay (Slider) */}
-          <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+          <div className="bg-[#F4F7F5] p-6 rounded-xl shadow-sm border border-gray-100">
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h2 className="text-xl font-bold text-gray-900">Lịch dạy hôm nay</h2>
@@ -398,7 +429,7 @@ export default function TutorDashboardPage() {
         </div>
 
         {/* Cột bên phải (1/3) */}
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <div className="bg-[#F4F7F5] p-6 rounded-xl shadow-sm border border-gray-100">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-xl font-bold text-gray-900">Lớp đang dạy</h2>
             <span className="text-sm font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full">

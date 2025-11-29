@@ -111,7 +111,7 @@ export default function LoginPage() {
             </div> */}
           </div>
           
-          <h2 className="text-5xl font-bold mb-6 tracking-tight drop-shadow-lg">
+          <h2 className="text-6xl mb-6 tracking-tight drop-shadow-lg" style={{color: '#FFFFF1', fontFamily: 'Jaro'}}>
             HCMUT TUTOR
           </h2>
           
@@ -129,14 +129,14 @@ export default function LoginPage() {
           {/* Header Mobile */}
           <div className="text-center lg:hidden">
             <div className="mx-auto h-20 w-20 relative mb-4">
-              <Image src="/logo-bkhcm.png" alt="HCMUT Logo" fill className="object-contain" />
+              <Image src="/hcmut.png" alt="HCMUT Logo" fill className="object-contain" />
             </div>
             <h2 className="text-3xl font-extrabold text-gray-900">Đăng nhập</h2>
           </div>
 
           <div className="text-center hidden lg:block">
-             <h2 className="text-3xl font-extrabold text-gray-900">Đăng nhập hệ thống</h2>
-             <p className="mt-2 text-sm text-gray-600">Nhập thông tin tài khoản của bạn</p>
+             <h2 className="text-5xl font-thinbold" style={{color: '#0313B0', fontFamily: 'Jaro'}}>Đăng nhập hệ thống</h2>
+             <p className="text-1xl mt-2 text-gray-600" style={{fontFamily: 'Jaro'}}>Nhập thông tin tài khoản của bạn</p>
           </div>
 
           <form className="mt-8 space-y-6" onSubmit={handleLogin}>
@@ -153,26 +153,29 @@ export default function LoginPage() {
             <div className="space-y-4">
               {/* Username */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Tên đăng nhập</label>
+                <label className="block text-sm font-medium mb-1" style={{color: '#0313B0', fontFamily: 'Jaro'}}>Tên đăng nhập</label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
                     <User size={20} />
                   </div>
-                  <input
-                    type="text"
-                    required
-                    className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all outline-none"
-                    placeholder="student / tutor / admin"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    disabled={isLoading}
-                  />
+                    <input
+                      type="text"
+                      required
+                      className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg 
+                                focus:ring-2 focus:ring-blue-600 focus:border-transparent 
+                                transition-all outline-none placeholder-gray-500 text-gray-500"
+                      style={{fontFamily: 'Jaro'}}
+                      placeholder="Nhập MSSV/MCB"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      disabled={isLoading}
+                    />
                 </div>
               </div>
 
               {/* Password */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Mật khẩu</label>
+                <label className="block text-sm font-medium  mb-1" style={{color: '#0313B0', fontFamily: 'Jaro'}}>Mật khẩu</label>
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
                     <Lock size={20} />
@@ -180,7 +183,8 @@ export default function LoginPage() {
                   <input
                     type={showPassword ? "text" : "password"}
                     required
-                    className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all outline-none"
+                    className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all outline-none placeholder-gray-500 text-gray-500"
+                    style={{fontFamily: 'Jaro'}}
                     placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -195,7 +199,7 @@ export default function LoginPage() {
                   </button>
                 </div>
                 <div className="flex justify-end mt-2">
-                  <a href="#" className="text-sm font-medium text-blue-600 hover:text-blue-800">Quên mật khẩu?</a>
+                  <a href="#" className="text-sm font-medium text-blue-600 hover:text-blue-800" style={{color: '#0313B0', fontFamily: 'Jaro'}}>Quên mật khẩu?</a>
                 </div>
               </div>
             </div>
@@ -203,19 +207,29 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full flex justify-center py-3 px-4 border border-transparent text-sm font-bold rounded-lg text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 shadow-lg hover:shadow-xl disabled:opacity-70 disabled:cursor-not-allowed"
+              className="
+                w-full flex justify-center py-3 px-4 
+                border border-transparent text-sm font-bold rounded-lg 
+                text-white 
+                bg-[#0313B0] hover:bg-[#02108A] 
+                focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0313B0]
+                transition-all duration-200 
+                shadow-lg hover:shadow-xl 
+                disabled:opacity-70 disabled:cursor-not-allowed
+              "
+              style={{fontFamily: 'Jaro'}}
             >
               {isLoading ? <Loader2 className="animate-spin mr-2 h-5 w-5" /> : 'Đăng nhập'}
             </button>
             
-            <div className="mt-6 text-center text-xs text-gray-400">
+            <div className="mt-6 text-center text-sm text-gray-400" style={{fontFamily: 'Jaro'}}>
               Copyright © 2024 HCMUT. All rights reserved.
             </div>
             
-            {/* Dev Helper */}
+            {/* Dev Helper
             <div className="mt-4 p-3 bg-gray-100 rounded text-xs text-gray-500 text-center">
               Dev Mode: admin / tutor / student (Pass: any)
-            </div>
+            </div> */}
           </form>
         </div>
       </div>
