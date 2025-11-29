@@ -5,7 +5,7 @@ import { HiOutlinePencil } from 'react-icons/hi';
 const InfoRow = ({ label, value }: { label: string; value: string }) => (
   <div>
     <h4 className="text-xs font-semibold text-gray-400 uppercase">{label}</h4>
-    <p className="text-sm text-white">{value}</p>
+    <p className="text-sm text-[#0313B0]">{value}</p>
   </div>
 );
 
@@ -15,7 +15,7 @@ export default function TutorProfilePage() {
     <div className="space-y-6" style={{ color: '#E0E7FF' }}> {/* Màu chữ sáng cho dễ đọc */}
       
       {/* Thẻ Profile trên cùng */}
-      <div className="bg-white/10 p-6 rounded-lg shadow-lg flex items-center space-x-6">
+      <div className="bg-[#F4F7F5] p-6 rounded-lg shadow-lg flex items-center space-x-6">
         <div className="relative">
           <Image 
             src="/avatar-placeholder.jpg" // Dùng chung ảnh avatar
@@ -29,16 +29,16 @@ export default function TutorProfilePage() {
           </button>
         </div>
         <div>
-          <h1 className="text-3xl font-bold text-white">Lương Ngọc Trung</h1>
-          <p className="text-lg text-blue-300">Tutor</p>
-          <p className="text-md text-gray-300 mt-2">TP.HCM, Việt Nam</p>
+          <h1 className="text-3xl font-bold text-[#0313B0]">Lương Ngọc Trung</h1>
+          <p className="text-lg text-[#0313B0]">Tutor</p>
+          <p className="text-md text-[#0313B0] mt-2">TP.HCM, Việt Nam</p>
         </div>
       </div>
 
       {/* Thẻ Thông tin cá nhân */}
-      <div className="bg-white/10 p-6 rounded-lg shadow-lg">
+      <div className="bg-[#F4F7F5] p-6 rounded-lg shadow-lg">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold text-white">Thông tin cá nhân</h2>
+          <h2 className="text-xl font-bold text-[#0313B0]">Thông tin cá nhân</h2>
           <button className="p-2 rounded-full hover:bg-white/20">
             <HiOutlinePencil className="w-5 h-5 text-white" />
           </button>
@@ -54,9 +54,9 @@ export default function TutorProfilePage() {
       </div>
 
       {/* Thẻ Địa chỉ */}
-      <div className="bg-white/10 p-6 rounded-lg shadow-lg">
+      <div className="bg-[#F4F7F5] p-6 rounded-lg shadow-lg">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold text-white">Địa chỉ</h2>
+          <h2 className="text-xl font-bold text-[#0313B0]">Địa chỉ</h2>
           <button className="p-2 rounded-full hover:bg-white/20">
             <HiOutlinePencil className="w-5 h-5 text-white" />
           </button>

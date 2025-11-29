@@ -189,7 +189,7 @@ export default function StudentLibraryPage() {
           <input
             type="text"
             placeholder="Tìm kiếm theo tên tài liệu, môn học hoặc tác giả..."
-            className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-600"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />

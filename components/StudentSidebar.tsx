@@ -63,7 +63,7 @@ export default function StudentSidebar() {
               <FaChalkboardTeacher className="w-6 h-6 text-blue-600" />
           </div>
           <div>
-              <h1 className="text-xl font-extrabold text-gray-800 tracking-tight">HCMUT <span className="text-blue-600">Tutor</span></h1>
+              <h1 className="text-3xl font-extrabold text-gray-800 tracking-tight" style={{fontFamily: 'Jaro'}}>HCMUT <span className="text-blue-600">Tutor</span></h1>
           </div>
         </div>
 

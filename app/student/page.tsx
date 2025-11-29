@@ -251,31 +251,59 @@ export default function StudentDashboardPage() {
 
   return (
     <div className="space-y-6 pb-8">
-        
-        {/* Banner Giáng sinh (Style giống Tutor) */}
         <div 
-          className="p-6 rounded-2xl shadow-sm relative overflow-hidden bg-cover bg-center"
+          className="rounded-2xl shadow-sm relative overflow-hidden bg-cover bg-center group"
           style={{
             backgroundImage: 'url(https://images.unsplash.com/photo-1512389142860-9c449e58a543?w=1200&q=80)',
-            minHeight: '140px'
+            minHeight: '200px' 
           }}
         >
-          <div className="absolute inset-0 bg-linear-to-r from-blue-900/90 via-indigo-900/85 to-purple-900/90"></div> {/* Đổi màu gradient sang tông xanh/tím cho SV */}
+          <div className="absolute inset-0 bg-[#002815]/90"></div>
           
-          <div className="relative z-10">
-            <div className="flex items-center justify-between">
-              <div>
-                <h1 className="text-3xl font-bold text-white mb-1 drop-shadow-lg" style={{fontFamily: 'cursive'}}>
-                  🎄 Merry Christmas, Churine! ✨
+          <div className="absolute top-0 w-full h-full opacity-20 pointer-events-none" 
+               style={{backgroundImage: 'radial-gradient(circle, #fcd34d 1px, transparent 1px)', backgroundSize: '30px 30px'}}>
+          </div>
+
+          <div className="relative z-10 p-6 flex flex-col justify-between h-full">
+            
+            <div className="w-full mb-4">
+              <div className="flex justify-start">
+                 <h1 
+                  className="text-7xl md:text-8xl leading-none"
+                  style={{
+                    fontFamily: 'Italianno, cursive',
+                    color: '#D32F2F', 
+                    WebkitTextStroke: '1px white', 
+                    textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
+                    transform: 'rotate(-0deg)',
+                    fontStyle: 'italic' 
+                  }}
+                >
+                  Giáng sinh này
                 </h1>
-                <p className="text-white/95 text-base drop-shadow">
-                  Hôm nay bạn có <span className="font-bold text-yellow-300">{todayClasses.filter(c => c.status !== 'completed').length} lớp học</span>. Cố gắng đạt điểm A+ nhé! 🚀
-                </p>
               </div>
-              <div className="text-white/90 text-5xl drop-shadow-lg animate-bounce">
-                ⛄
+
+              <div className="flex justify-end mt-6 md:mt-1 mr-15">
+                <h2 
+                  className="text-5xl md:text-7xl tracking-wide"
+                  style={{
+                    fontFamily: 'Jaro, sans-serif',
+                    color: '#4ADE80', 
+                    textShadow: '2px 2px 0px #003300'
+                  }}
+                >
+                  bạn có ai học cùng chưa?
+                </h2>
               </div>
             </div>
+
+            {/* KHU VỰC INFO NGƯỜI DÙNG (Giữ lại logic cũ của bạn nhưng đẩy xuống dưới) */}
+            <div className="flex items-end justify-between border-t border-white/20 pt-4 mt-2">
+                <p className="text-white/95 text-base drop-shadow">
+                  Hôm nay bạn có <span className="font-bold text-yellow-300">{todayClasses.filter(c => c.status !== 'completed').length} lớp học</span>. Cố gắng đạt điểm A+ nhé!
+                </p>
+            </div>
+
           </div>
         </div>
 

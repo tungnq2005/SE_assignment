@@ -60,7 +60,7 @@ export default function CommunityPage() {
              <input 
                 type="text" 
                 placeholder="Tìm kiếm nhóm..." 
-                className="w-full pl-12 pr-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-100 transition"
+                className="text-gray-600 w-full pl-12 pr-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-blue-100 transition"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
              />
