@@ -88,7 +88,7 @@ export default function TutorProgressPage() {
     <div className="h-full flex flex-col space-y-6">
       
       {/* Header với thống kê */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl shadow-lg p-6 text-white">
+      <div className="bg-linear-to-r from-blue-600 to-indigo-600 rounded-xl shadow-lg p-6 text-white">
         <div className="flex items-center justify-between mb-4">
           <div>
             <h1 className="text-3xl font-bold mb-2">Theo dõi tiến bộ sinh viên</h1>
@@ -130,7 +130,7 @@ export default function TutorProgressPage() {
               placeholder="Tìm kiếm theo tên, MSSV, email..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-600"
             />
           </div>
 
@@ -140,7 +140,7 @@ export default function TutorProgressPage() {
             <select
               value={filterFaculty}
               onChange={(e) => setFilterFaculty(e.target.value)}
-              className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+              className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-600"
             >
               <option value="all">Tất cả khoa</option>
               {faculties.filter(f => f !== 'all').map(faculty => (
@@ -154,7 +154,7 @@ export default function TutorProgressPage() {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
-              className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+              className="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white text-gray-600"
             >
               <option value="name">Tên</option>
               <option value="score">Điểm</option>

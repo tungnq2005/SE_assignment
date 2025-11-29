@@ -60,7 +60,7 @@ export default function TutorSidebar() {
               <FaChalkboardTeacher className="w-6 h-6 text-blue-600" />
           </div>
           <div>
-              <h1 className="text-xl font-extrabold text-gray-800 tracking-tight">HCMUT <span className="text-blue-600">Tutor</span></h1>
+              <h1 className="text-3xl font-extrabold text-gray-800 tracking-tight" style={{fontFamily: 'Jaro'}}>HCMUT <span className="text-blue-600">Tutor</span></h1>
           </div>
         </div>
 
@@ -69,7 +69,7 @@ export default function TutorSidebar() {
           {/* Nhóm: TỔNG QUAN */}
           <div>
               <h3 className="text-xs font-bold text-gray-400 uppercase mb-4 px-6 tracking-wider">Tổng quan</h3>
-              <div className="space-y-2">
+              <div className="space-y-2" > 
                   <NavLink 
                       href="/tutor" 
                       icon={HiOutlineHome} 
