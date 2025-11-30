@@ -1,14 +1,14 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { HiX } from 'react-icons/hi';
 import { NotiContainer } from '@/components/noti';
 import AvailabilitySchedule from '@/components/AvailabilitySchedule';
-
+import axios from 'axios';
 // Mock data ban đầu
 const INITIAL_EXPERTISE = ['Giải tích 2', 'Cấu trúc dữ liệu và giải thuật', 'Kỹ thuật lập trình', 'Công nghệ phần mềm'];
 const INITIAL_SKILLS = ['Giao tiếp tiếng anh', 'Viết report bằng latex'];
-
+const BASE_URL = 'http://localhost:5000';
 interface NotificationItem {
   id: number;
   type: 'success' | 'error';
@@ -17,8 +17,10 @@ interface NotificationItem {
 }
 
 interface AvailableSlot {
-  date: string;
-  time: string;
+  ID?: number; 
+  Date: string; // YYYY-MM-DD
+  StartTime: string; // HH:MM:SS
+  EndTime: string; // HH:MM:SS
 }
 
 export default function TutorSupportInfoPage() {
@@ -48,15 +50,16 @@ export default function TutorSupportInfoPage() {
   });
 
   // Hàm thêm thông báo
-  const addNotification = (type: 'success' | 'error', title: string, message: string) => {
-    const newNoti: NotificationItem = {
-      id: Date.now(),
-      type,
-      title,
-      message
-    };
-    setNotifications(prev => [...prev, newNoti]);
-  };
+const addNotification = useCallback((type: 'success' | 'error', title: string, message: string) => {
+      const newNoti: NotificationItem = {
+        id: Date.now() + Math.random(), // FIX KEY ISSUE HERE
+        type,
+        title,
+        message
+      };
+      // setNotifications là hàm ổn định (stable function), nên dependencies là []
+      setNotifications(prev => [...prev, newNoti]); 
+  }, [setNotifications]);
 
   // Hàm xóa thông báo
   const removeNotification = (id: number) => {
@@ -108,18 +111,69 @@ export default function TutorSupportInfoPage() {
   };
 
   // Xử lý lưu lịch rảnh
-  const handleSaveSchedule = (slots: AvailableSlot[]) => {
+  const handleSaveSchedule = async (newSlots: AvailableSlot[], deletedIds: number[]) => {
+    let successCount = 0;
+    let errorCount = 0;
+    const token = localStorage.getItem('access_token'); 
+
+    if (!token) {
+        addNotification('error', 'Lỗi xác thực', 'Phiên đăng nhập không hợp lệ. Vui lòng đăng nhập lại.');
+        throw new Error('Missing token');
+    }
+
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}` 
+        }
+    };
     try {
-      // Mock API call - bỏ comment khi có backend
-      // await axios.post('/api/tutor/availability', { slots });
-      
-      console.log('Lịch rảnh đã lưu:', slots);
-      addNotification('success', 'Thành công', `Đã lưu ${slots.length} khung giờ rảnh!`);
+        // 1. Xử lý xóa (DELETE)
+        if (deletedIds.length > 0) {
+            await Promise.all(deletedIds.map(async (id) => {
+                try {
+                    // Endpoint: DELETE /api/tutors/me/availability/:id
+                    await axios.delete(`${BASE_URL}/api/tutors/me/availability/${id}`, config);
+                    successCount++;
+                } catch(e) {
+                    console.error(`Lỗi xóa slot ID ${id}:`, e);
+                    errorCount++;
+                }
+            }));
+        }
+
+        // 2. Xử lý thêm mới (POST)
+        if (newSlots.length > 0) {
+            await Promise.all(newSlots.map(async (slot) => {
+                // Endpoint: POST /api/tutors/me/availability
+                try {
+                    // Gửi dữ liệu đúng format BE: { Date, StartTime, EndTime }
+                    await axios.post(`${BASE_URL}/api/tutors/me/availability`, slot, config);
+                    successCount++;
+                } catch(e) {
+                    console.error('Lỗi thêm slot mới:', e);
+                    errorCount++;
+                }
+            }));
+        }
+
+        if (successCount > 0) {
+            addNotification('success', 'Thành công', `Đã xử lý thành công ${successCount} thay đổi (Thêm mới/Xóa)!`);
+        }
+        if (errorCount > 0) {
+            addNotification('error', 'Lỗi', `Đã xảy ra lỗi với ${errorCount} tác vụ. Vui lòng kiểm tra console.`);
+            // Ném lỗi để component con (AvailabilitySchedule) biết và fetch lại
+            throw new Error('Some save operations failed.');
+        }
+
     } catch (error) {
-      addNotification('error', 'Lỗi', 'Không thể lưu lịch rảnh. Vui lòng thử lại!');
+        console.error("Lỗi API tổng thể khi lưu lịch rảnh:", error);
+        if (successCount === 0) {
+            addNotification('error', 'Lỗi', 'Không thể lưu lịch rảnh do lỗi hệ thống.');
+        }
+        // Ném lỗi để component con (AvailabilitySchedule) biết và fetch lại
+        throw error;
     }
   };
-
   // Xử lý khi nhấn Enter trong input
   const handleExpertiseKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter') {
@@ -317,14 +371,18 @@ export default function TutorSupportInfoPage() {
 
             {/* ========== TAB 2: THIẾT LẬP LỊCH RẢNH ========== */}
             {activeTab === 'schedule' && (
-              <div className="animate-fade-in">
-                <h1 className="text-3xl font-bold text-center mb-8" style={{ color: '#0313B0' }}>
-                  Lịch rảnh chung hằng tuần
-                </h1>
-                
-                <AvailabilitySchedule onSave={handleSaveSchedule} />
-              </div>
-            )}
+          <div className="animate-fade-in">
+            <h1 className="text-3xl font-bold text-center mb-8" style={{ color: '#0313B0' }}>
+              Lịch rảnh chung hằng tuần
+            </h1>
+            
+            {/* TRUYỀN HÀM onSave VÀ addNotification XUỐNG */}
+            <AvailabilitySchedule 
+              onSave={handleSaveSchedule} 
+              addNotification={addNotification} 
+            />
+          </div>
+        )}
           </div>
         </div>
 

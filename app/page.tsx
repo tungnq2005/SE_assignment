@@ -9,42 +9,11 @@ import { Eye, EyeOff, Lock, User, Loader2, ArrowRight } from 'lucide-react';
 // --- MOCK DATA & TYPES ---
 type UserRole = 'admin' | 'tutor' | 'student';
 
-interface UserData {
-  id: string;
-  username: string;
-  fullName: string;
-  role: UserRole;
-}
-
-const MOCK_DB = [
-  { username: 'admin', password: '123', role: 'admin', fullName: 'Phòng Đào Tạo' },
-  { username: 'tutor', password: '123', role: 'tutor', fullName: 'GV. Lương Ngọc Trung' },
-  { username: 'student', password: '123', role: 'student', fullName: 'Nguyễn Văn A' },
-];
-
-const fakeLoginApi = (username: string, pass: string): Promise<UserData> => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const user = MOCK_DB.find((u) => u.username === username);
-      if (!user) {
-        reject(new Error('Tài khoản không tồn tại.'));
-        return;
-      }
-      resolve({
-        id: 'user_123',
-        username: user.username,
-        fullName: user.fullName,
-        role: user.role as UserRole,
-      });
-    }, 1500);
-  });
-};
-
 // --- COMPONENT CHÍNH ---
 
 export default function LoginPage() {
   const router = useRouter();
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -54,7 +23,7 @@ export default function LoginPage() {
     e.preventDefault();
     setError('');
     
-    if (!username || !password) {
+    if (!email || !password) {
       setError('Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu.');
       return;
     }
@@ -62,10 +31,20 @@ export default function LoginPage() {
     setIsLoading(true);
 
     try {
-      const user = await fakeLoginApi(username, password);
-      toast.success(`Chào mừng ${user.fullName}!`);
+      const res = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      const respond = await res.json()
+      console.log(respond)
+      if(res.ok){
+        localStorage.setItem("access_token", respond.token);
+		    localStorage.setItem("user_data", JSON.stringify(respond.user));
+      }
+      toast.success(`Chào mừng ${respond.user.Name}!`);
       
-      switch (user.role) {
+      switch (respond.user.Role) {
         case 'admin': router.push('/admin'); break;
         case 'tutor': router.push('/tutor'); break;
         case 'student': router.push('/student'); break;
@@ -163,8 +142,8 @@ export default function LoginPage() {
                     required
                     className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-600 focus:border-transparent transition-all outline-none"
                     placeholder="student / tutor / admin"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     disabled={isLoading}
                   />
                 </div>
